@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biyeseng.mapper.StuMapper">
+
+
+
+	<select id="findStuList" resultType="Stu">
+		select * from stu
+	</select>
+
+	<select id="query" parameterType="java.util.Map"
+		resultType="Stu">
+		select * from stu u
+		<where>
+			<if test="stuname!=null and stuname!=''">
+				and u.stuname= #{stuname}
+			</if>
+			<if test="pwd!=null and pwd!=''">
+				and u.pwd= #{pwd}
+			</if>
+			<if test="stuno!=null and stuno!=''">
+				and u.stuno= #{stuno}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="queryStuById" parameterType="int" resultType="Stu">
+		select
+		* from stu where id=${value}
+	</select>
+
+	<insert id="insertStu" useGeneratedKeys="true" keyProperty="id"
+		parameterType="Stu">
+		insert into stu
+		(username,pwd,sex,age,stuno)
+		values
+		(#{username},#{pwd},#{sex},#{age},#{stuno});
+	</insert>
+
+	<update id="updateStu" parameterType="Stu">
+		update stu set
+		username=#{username},pwd=#{pwd},sex=#{sex},age=#{age},stuno=#{stuno}
+		where
+		id=#{id}
+	</update>
+
+	<delete id="deleteStu" parameterType="int">
+		delete from stu where id=${value}
+	</delete>
+
+</mapper>
